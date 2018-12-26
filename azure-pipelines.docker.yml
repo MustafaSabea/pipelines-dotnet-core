@@ -14,10 +14,10 @@ steps:
     dotnet test dotnetcore-tests --configuration $(buildConfiguration) --logger trx
     dotnet publish --configuration $(buildConfiguration) --output out
     docker build -f Dockerfile -t $(dockerId)/$(imageName) .
-    docker login -u $(dockerId) -p $pswd
+    docker login -u $(dockerId) -p $(dockerPassword)
     docker push $(dockerId)/$(imageName)
-  env:
-    pswd: $(dockerPassword)
+  #env:
+  #  pswd: $(dockerPassword)
 
 - task: PublishTestResults@2
   condition: succeededOrFailed()
